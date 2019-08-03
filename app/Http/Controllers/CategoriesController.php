@@ -113,7 +113,10 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $id)
     {
-        //
+        foreach ($id->posts as $post) {
+            
+            $post->forceDelete();
+        }
     
         $id->delete();
 

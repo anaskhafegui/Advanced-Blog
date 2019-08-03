@@ -85,25 +85,60 @@
                         <li class="list-group-item">
                                 <a href="{{route('home')}}">Home</a>
                         </li>
+
+
+                       @if(Auth::user()->admin)
+                      
                         <li class="list-group-item">
-                                <a href="{{route('post.index')}}">all Posts</a> 
+                            <a href="{{route('user.index')}}">Users</a>
+                        </li>
+
+                        <li class="list-group-item">
+                                <a href="{{route('user.create')}}">Create A User</a>
+                        </li>
+
+                        <li class="list-group-item">
+                                <a href="{{route('blog.edit')}}">Settings</a>
+                        </li>
+
+                        @endif
+
+                        <li class="list-group-item">
+                                <a href="{{route('user.profile')}}">Edit your Profile</a>
+                        </li>
+                        
+                        <li class="list-group-item">
+                                <a href="{{route('post.index')}}">Posts</a> 
                               
                         </li>
-                        <li class="list-group-item">
+                         <li class="list-group-item">
+                           <a href="{{route('post.create')}}">Create A post</a> 
+                         
+                        </li>
+                         <li class="list-group-item">
                                 <a href="{{route('post.trashed')}}">Trashed Posts</a> 
                               
                         </li>
                         <li class="list-group-item">
-                                <a href="/admin/category/index">Category</a> 
+                                <a href="{{route('tag.index')}}">Tags</a> 
                               
                         </li>
                         <li class="list-group-item">
-                           <a href="{{route('post.create')}}">Create A post</a> 
-                         
+                                <a href="{{route('tag.create')}}">Create A tag</a> 
+                              
+                             </li>
+                             <li class="list-group-item">
+                                <a href="/admin/category/index">Categories</a> 
+                              
                         </li>
-                        <li class="list-group-item">
+                         <li class="list-group-item">
                                 <a href="{{route('category.create')}}">Create A category</a> 
                         </li>
+                       
+                        
+                       
+                        
+                       
                         
                     </ul>
                 </div>

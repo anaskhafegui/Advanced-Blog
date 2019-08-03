@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Category;
 use App\Post;
-
+use App\Tag;
 use Session;
 
 class PostsController extends Controller
@@ -29,18 +29,20 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        $tags = Tag::all(); 
+
+
         $categories = Category::all();
 
-        if ($categories->count() == 0) {
+        if ($categories->count() == 0 || $tags->count() ==0) {
 
             
 
-            Session::flash('info','Your must have some categories .');
+            Session::flash('info','Your must have some categories and Tags.');
 
             return redirect()->back();
         }
-        return view('admin.posts.create')->with('categories', Category::all());
+        return view('admin.posts.create')->with('categories', $categories)->with('tags', Tag::all());
     }
     
     public function trash()
@@ -79,8 +81,8 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         //
-        
-
+       
+    
         $this->validate($request,[
 
             'title'       => 'required',
@@ -89,7 +91,11 @@ class PostsController extends Controller
 
             'content'     => 'required',
 
-            'category_id' => 'required'
+            'category_id' => 'required',
+
+            'tags'        => 'required'
+ 
+           
         ]);
 
         $featured              = $request->featured;
@@ -107,6 +113,10 @@ class PostsController extends Controller
         'slug' => str_slug($request->title)
 
         ]);
+
+        $post->tags()->attach($request->tags);
+
+        
       
       
         return redirect()->route('post.index');
@@ -132,7 +142,7 @@ class PostsController extends Controller
     public function edit(Post $id)
 
     {
-        return view('admin.posts.edit',compact('id'))->with('categories',Category::all());
+        return view('admin.posts.edit',compact('id'))->with('categories',Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -144,6 +154,8 @@ class PostsController extends Controller
      */
     public function update(Request $request,Post $id)
     {
+
+        
        $this->validate($request ,[
 
         'title'       => 'required',
@@ -152,7 +164,10 @@ class PostsController extends Controller
 
         'content'     => 'required',
 
-        'category_id' => 'required'
+        'category_id' => 'required',
+
+        'tags'        => 'required'
+
        ]);
 
        $post = Post::find($id);

@@ -60,6 +60,20 @@
             </div>
 
             <div class="form-group">
+
+                  <label for="tags">Select Tag </label>
+            @foreach ($tags as $t)
+                
+           
+         <div class="checkbox">
+               <label><input type="checkbox" value="{{ $t->id}}" name="tags[]">{{ $t->tag}}</label>
+           </div>
+
+           @endforeach
+                  
+         </div>
+
+            <div class="form-group">
                <div class="text-center">
                      <button type="submit" class="btn btn-success">Store</button>
                </div>
